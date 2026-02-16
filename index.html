@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernwörter Übung - Woche 25</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .week-info {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .word-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .word-number {
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .play-button {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 35px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 10px;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .play-button:active {
+            transform: scale(0.95);
+        }
+
+        .hint-text {
+            color: white;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .sentence-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .solution {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .solution.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .solution-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .instructions {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #ffc107;
+        }
+
+        .instructions h3 {
+            color: #f57c00;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .status {
+            text-align: center;
+            color: #666;
+            margin: 10px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Lernwörter Üben</h1>
+        <div class="week-info">Woche 25 (16.02.-20.02.26)</div>
+
+        <div class="instructions">
+            <h3>📝 So funktioniert's:</h3>
+            <ol>
+                <li>Klicke auf den ▶️-Button, um das Wort zu hören</li>
+                <li>Schreibe das Wort auf ein Papier</li>
+                <li>Mache das mit allen Wörtern</li>
+                <li>Klicke auf "Lösung anzeigen" zum Vergleichen</li>
+            </ol>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div class="status" id="status">Bereit zum Start!</div>
+
+        <div id="wordsContainer"></div>
+
+        <div class="sentence-card">
+            <div class="word-number">📚 Lernwort-Satz</div>
+            <button class="play-button" onclick="speakSentence()">▶️</button>
+            <div class="hint-text">Klicke, um den Satz zu hören</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="playAll()">🔊 Alle Wörter abspielen</button>
+            <button class="btn btn-success" onclick="toggleSolution()">👁️ Lösung anzeigen</button>
+        </div>
+
+        <div class="solution" id="solution">
+            <h3 style="color: #667eea; margin-bottom: 15px;">✅ Lösung:</h3>
+            <div id="solutionList"></div>
+            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 5px; border-left: 4px solid #2196f3;">
+                <strong>Lernwort-Satz:</strong><br>
+                Ich weiß, dass Obst und Gemüse viele gesunde Vitamine enthalten.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const words = [
+            "das Vitamin",
+            "die Lawine",
+            "die Kusine",
+            "der Termin",
+            "die Rosine",
+            "die Ruine",
+            "das Magazin",
+            "der Delfin"
+        ];
+
+        const sentence = "Ich weiß, dass Obst und Gemüse viele gesunde Vitamine enthalten.";
+
+        let playedCount = 0;
+
+        // Erstelle Wortkarten
+        function createWordCards() {
+            const container = document.getElementById('wordsContainer');
+            words.forEach((word, index) => {
+                const card = document.createElement('div');
+                card.className = 'word-card';
+                card.innerHTML = `
+                    <div class="word-number">Wort ${index + 1}</div>
+                    <button class="play-button" onclick="speakWord('${word}', ${index})">▶️</button>
+                    <div class="hint-text">Klicke, um das Wort zu hören</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Erstelle Lösungsliste
+        function createSolutionList() {
+            const solutionList = document.getElementById('solutionList');
+            words.forEach((word, index) => {
+                const item = document.createElement('div');
+                item.className = 'solution-item';
+                item.innerHTML = `<strong>Wort ${index + 1}:</strong> ${word}`;
+                solutionList.appendChild(item);
+            });
+        }
+
+        // Sprachausgabe für einzelnes Wort
+        function speakWord(word, index) {
+            if ('speechSynthesis' in window) {
+                // Stoppe vorherige Sprachausgabe
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'de-DE';
+                utterance.rate = 0.8; // Etwas langsamer für besseres Verstehen
+                utterance.pitch = 1;
+
+                utterance.onstart = function() {
+                    updateStatus(`🔊 Spielt Wort ${index + 1}...`);
+                };
+
+                utterance.onend = function() {
+                    playedCount++;
+                    updateProgress();
+                    updateStatus(`✓ Wort ${index + 1} gespielt`);
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Leider unterstützt dein Browser keine Sprachausgabe.');
+            }
+        }
+
+        // Sprachausgabe für Satz
+        function speakSentence() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(sentence);
+                utterance.lang = 'de-DE';
+                utterance.rate = 0.7; // Langsamer für den längeren Satz
+                utterance.pitch = 1;
+
+                utterance.onstart = function() {
+                    updateStatus('🔊 Spielt Lernwort-Satz...');
+                };
+
+                utterance.onend = function() {
+                    updateStatus('✓ Satz gespielt');
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Leider unterstützt dein Browser keine Sprachausgabe.');
+            }
+        }
+
+        // Alle Wörter nacheinander abspielen
+        function playAll() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                playedCount = 0;
+                updateProgress();
+                updateStatus('🔊 Spiele alle Wörter ab...');
+
+                let currentIndex = 0;
+
+                function playNext() {
+                    if (currentIndex < words.length) {
+                        const utterance = new SpeechSynthesisUtterance(words[currentIndex]);
+                        utterance.lang = 'de-DE';
+                        utterance.rate = 0.8;
+                        utterance.pitch = 1;
+
+                        utterance.onstart = function() {
+                            updateStatus(`🔊 Wort ${currentIndex + 1} von ${words.length}...`);
+                        };
+
+                        utterance.onend = function() {
+                            playedCount++;
+                            updateProgress();
+                            currentIndex++;
+                            // Kurze Pause zwischen Wörtern
+                            setTimeout(playNext, 1500);
+                        };
+
+                        window.speechSynthesis.speak(utterance);
+                    } else {
+                        updateStatus('✅ Alle Wörter wurden abgespielt!');
+                    }
+                }
+
+                playNext();
+            } else {
+                alert('Leider unterstützt dein Browser keine Sprachausgabe.');
+            }
+        }
+
+        // Lösung anzeigen/verstecken
+        function toggleSolution() {
+            const solution = document.getElementById('solution');
+            solution.classList.toggle('show');
+
+            const btn = event.target;
+            if (solution.classList.contains('show')) {
+                btn.textContent = '🙈 Lösung verstecken';
+            } else {
+                btn.textContent = '👁️ Lösung anzeigen';
+            }
+        }
+
+        // Fortschritt aktualisieren
+        function updateProgress() {
+            const progress = (playedCount / words.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Status aktualisieren
+        function updateStatus(text) {
+            document.getElementById('status').textContent = text;
+        }
+
+        // Initialisierung
+        createWordCards();
+        createSolutionList();
+    </script>
+</body>
+</html>
