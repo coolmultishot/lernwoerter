@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Interaktive Lernwörter-Übung mit Sprachausgabe">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Lernwörter">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <title>Lernwörter Übung - Woche 25</title>
     <style>
         * {
@@ -202,7 +209,7 @@
 <body>
     <div class="container">
         <h1>📚 Lernwörter Üben</h1>
-        <div class="week-info">Woche 8 (16.02.-20.02.26)</div>
+        <div class="week-info">Woche 25 (16.02.-20.02.26)</div>
 
         <div class="instructions">
             <h3>📝 So funktioniert's:</h3>
@@ -236,7 +243,8 @@
             <div id="solutionList"></div>
             <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 5px; border-left: 4px solid #2196f3;">
                 <strong>Lernwort-Satz:</strong><br>
-                Ich weiß, dass Obst und Gemüse viele gesunde Vitamine enthalten.</div>
+                Ich weiß, dass Obst und Gemüse viele gesunde Vitamine enthalten.
+            </div>
         </div>
     </div>
 
@@ -417,6 +425,49 @@
         // Initialisierung
         createWordCards();
         createSolutionList();
+
+        // Service Worker registrieren für PWA-Funktionalität
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/lernwoerter/sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker registriert:', registration.scope);
+
+                        // Prüfe auf Updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // Neue Version verfügbar - Seite neu laden
+                                    if (confirm('Neue Lernwörter verfügbar! Seite aktualisieren?')) {
+                                        window.location.reload();
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker Registrierung fehlgeschlagen:', error);
+                    });
+            });
+        }
+
+        // Install-Prompt für "Zum Homescreen hinzufügen"
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Verhindere automatisches Anzeigen
+            e.preventDefault();
+            deferredPrompt = e;
+
+            // Optional: Zeige eigenen Install-Button an
+            // (Hier könnten wir später einen Button einblenden)
+        });
+
+        // Tracking wenn App installiert wurde
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA wurde installiert');
+            deferredPrompt = null;
+        });
     </script>
 </body>
 </html>
