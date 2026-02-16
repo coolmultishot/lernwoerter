@@ -1,5 +1,5 @@
 {
-  "name": "Lernwörter Übung",
+  "name": "Lernwörter",
   "short_name": "Lernwörter",
   "description": "Interaktive Lernwörter-Übung mit Sprachausgabe",
   "start_url": "/lernwoerter/index.html",
