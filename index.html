@@ -249,16 +249,6 @@
             <button class="btn-install" onclick="installApp()">Jetzt installieren</button>
         </div>
 
-        <div class="install-banner" id="fallbackBanner" style="background: #ff9800;">
-            <div style="font-size: 1.1em; margin-bottom: 10px;">📱 Manuelle Installation</div>
-            <div style="font-size: 0.85em; text-align: left; max-width: 400px; margin: 0 auto;">
-                <strong>Chrome:</strong><br>
-                Menü (⋮) → "Zum Startbildschirm hinzufügen"<br><br>
-                <strong>Safari:</strong><br>
-                Teilen (□↑) → "Zum Home-Bildschirm"
-            </div>
-        </div>
-
         <div class="instructions">
             <h3>📝 So funktioniert's:</h3>
             <ol>
@@ -473,16 +463,6 @@
         // Initialisierung
         createWordCards();
         createSolutionList();
-
-        // Zeige Fallback-Banner nach 3 Sekunden wenn kein beforeinstallprompt Event
-        setTimeout(() => {
-            if (!deferredPrompt) {
-                const fallback = document.getElementById('fallbackBanner');
-                if (fallback) {
-                    fallback.classList.add('show');
-                }
-            }
-        }, 3000);
 
         // Service Worker registrieren für PWA-Funktionalität
         if ('serviceWorker' in navigator) {
