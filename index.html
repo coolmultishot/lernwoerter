@@ -204,12 +204,50 @@
             margin: 10px 0;
             font-style: italic;
         }
+
+        .install-banner {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+            color: white;
+        }
+
+        .install-banner.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-install {
+            background: white;
+            color: #11998e;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📚 Lernwörter Üben</h1>
         <div class="week-info">Woche 25 (16.02.-20.02.26)</div>
+
+        <div class="install-banner" id="installBanner">
+            <div style="font-size: 1.2em; margin-bottom: 5px;">📱 App installieren</div>
+            <div style="font-size: 0.9em;">Füge diese App zu deinem Homescreen hinzu!</div>
+            <button class="btn-install" onclick="installApp()">Jetzt installieren</button>
+        </div>
 
         <div class="instructions">
             <h3>📝 So funktioniert's:</h3>
@@ -459,14 +497,35 @@
             e.preventDefault();
             deferredPrompt = e;
 
-            // Optional: Zeige eigenen Install-Button an
-            // (Hier könnten wir später einen Button einblenden)
+            // Zeige eigenen Install-Button
+            const banner = document.getElementById('installBanner');
+            if (banner) {
+                banner.classList.add('show');
+            }
         });
+
+        // Funktion zum Installieren der App
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('App wird installiert');
+                    }
+                    deferredPrompt = null;
+                    document.getElementById('installBanner').classList.remove('show');
+                });
+            }
+        }
 
         // Tracking wenn App installiert wurde
         window.addEventListener('appinstalled', () => {
             console.log('PWA wurde installiert');
             deferredPrompt = null;
+            const banner = document.getElementById('installBanner');
+            if (banner) {
+                banner.classList.remove('show');
+            }
         });
     </script>
 </body>
