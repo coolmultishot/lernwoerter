@@ -228,7 +228,6 @@
         </div>
 
         <div class="controls">
-            <button class="btn btn-primary" onclick="playAll()">🔊 Alle Wörter abspielen</button>
             <button class="btn btn-success" onclick="toggleSolution()">👁️ Lösung anzeigen</button>
         </div>
 
@@ -254,7 +253,7 @@
             "der Delfin"
         ];
 
-        const sentence = "Ich weiß, dass Obst und Gemüse viele gesunde Vitamine enthalten.";
+        const sentence = "Ich weiß, Beistrich, dass Obst und Gemüse viele gesunde Vitamine enthalten.";
 
         let playedCount = 0;
 
@@ -291,9 +290,17 @@
                 window.speechSynthesis.cancel();
 
                 const utterance = new SpeechSynthesisUtterance(word);
-                utterance.lang = 'de-DE';
+                utterance.lang = 'de-AT'; // Österreichisches Deutsch
                 utterance.rate = 0.8; // Etwas langsamer für besseres Verstehen
                 utterance.pitch = 1;
+
+                // Versuche eine österreichische Stimme zu finden
+                const voices = window.speechSynthesis.getVoices();
+                const austrianVoice = voices.find(v => v.lang === 'de-AT') ||
+                                     voices.find(v => v.lang.startsWith('de'));
+                if (austrianVoice) {
+                    utterance.voice = austrianVoice;
+                }
 
                 utterance.onstart = function() {
                     updateStatus(`🔊 Spielt Wort ${index + 1}...`);
@@ -317,9 +324,17 @@
                 window.speechSynthesis.cancel();
 
                 const utterance = new SpeechSynthesisUtterance(sentence);
-                utterance.lang = 'de-DE';
+                utterance.lang = 'de-AT'; // Österreichisches Deutsch
                 utterance.rate = 0.7; // Langsamer für den längeren Satz
                 utterance.pitch = 1;
+
+                // Versuche eine österreichische Stimme zu finden
+                const voices = window.speechSynthesis.getVoices();
+                const austrianVoice = voices.find(v => v.lang === 'de-AT') ||
+                                     voices.find(v => v.lang.startsWith('de'));
+                if (austrianVoice) {
+                    utterance.voice = austrianVoice;
+                }
 
                 utterance.onstart = function() {
                     updateStatus('🔊 Spielt Lernwort-Satz...');
