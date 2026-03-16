@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    <script type="text/javascript" src="https://js-cdn.dynatracelabs.com/jstag/145e049b9b1/ruxitagent_ICA15789NPQRTUVXfqrux_10333260303165926.js" data-dtconfig="app=3569ac844baadea6|cors=1|owasp=1|featureHash=ICA15789NPQRTUVXfqrux|msl=153600|reportUrl=https://bf16254tue.bf-sprint.dynatracelabs.com/bf|rdnt=1|uxrgce=1|cuc=8860gbql|srms=2,1,0,0%2Ftextarea%2Cinput%2Cselect%2Coption;0%2Fdatalist;0%2Fform%20button;0%2F%5Bdata-dtrum-input%5D;0%2F.data-dtrum-input;1%2F%5Edata%28%28%5C-.%2B%24%29%7C%24%29|mel=100000|expw=1|dpvc=1|lastModification=1773135606609|postfix=8860gbql|tp=500,50,0|srbbv=2|agentUri=https://js-cdn.dynatracelabs.com/jstag/145e049b9b1/ruxitagent_ICA15789NPQRTUVXfqrux_10333260303165926.js" data-config='{"revision":1773135606609,"beaconUri":"https://bf16254tue.bf-sprint.dynatracelabs.com/bf","agentUri":"https://js-cdn.dynatracelabs.com/jstag/145e049b9b1/ruxitagent_ICA15789NPQRTUVXfqrux_10333260303165926.js","environmentId":"8860gbql","modules":"ICA15789NPQRTUVXfqrux"}' data-envconfig='{"tracestateKeyPrefix":"9317d4ad-79acea87"}' data-appconfig='{"app":"3569ac844baadea6"}' crossorigin="anonymous"></script>
+    <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="theme-color" content="#667eea">
     <meta name="description" content="Interaktive Lernwörter-Übung mit Sprachausgabe">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -241,7 +246,7 @@
 <body>
     <div class="container">
         <h1>📚 Lernwörter Üben</h1>
-        <div class="week-info">Woche 10 (02.03.-06.03.26)</div>
+        <div class="week-info">Woche 12 (16.03.-20.03.26)</div>
 
         <div class="install-banner" id="installBanner">
             <div style="font-size: 1.2em; margin-bottom: 5px;">📱 App installieren</div>
@@ -281,23 +286,23 @@
             <div id="solutionList"></div>
             <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 5px; border-left: 4px solid #2196f3;">
                 <strong>Lernwort-Satz:</strong><br>
-                Onkel, Tante, Kusine, Opa und Oma gehören zu meiner Verwandtschaft.</div>
+                Am Sonntag möchte ich mit meinen Eltern im Wald spazieren gehen.</div>
         </div>
     </div>
 
     <script>
         const words = [
-            "die Verwandtschaft",
-            "die Freundschaft",
-            "die Mannschaft",
-            "die Packung",
-            "die Verbesserung",
-            "die Lieferung",
-            "die Verspätung",
-            "die Einladung"
+            "trainieren",
+            "probieren",
+            "spazieren",
+            "passieren",
+            "reparieren",
+            "informieren",
+            "notieren",
+            "gratulieren"
         ];
 
-        const sentence = "Onkel, Beistrich, Tante, Beistrich, Kusine, Beistrich, Opa und Oma gehören zu meiner Verwandtschaft.";
+        const sentence = "Am Sonntag möchte ich mit meinen Eltern im Wald spazieren gehen.";
 
         let playedCount = 0;
 
@@ -466,7 +471,7 @@
         // Service Worker registrieren für PWA-Funktionalität
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/lernwoerter/sw.js')
+                navigator.serviceWorker.register('/apps/lernwoerter/sw.js')
                     .then((registration) => {
                         console.log('Service Worker registriert:', registration.scope);
 
